@@ -14,9 +14,9 @@ function getApi(requestUrl) {
         return response.json();
       })
       .then(function (data) {
-        console.log(data);
         cityName.textContent = data.name;
         currentDate.textContent = `(${moment().format('MM/D/YYYY')})`
+        // TODO: The appropriate weather icon needs to appear next to the date.
         tempF.textContent = data.main.temp;
         humidity.textContent = data.main.humidity;
         windSpeed.textContent = data.wind.speed;
