@@ -47,8 +47,18 @@ function buildHistory(source) {
     // Adds the href a attribute to our new element.
     currSearch.textContent = source;
     // Will allow the new list item to display the city name it just used.
+    eventClicks(currSearch);
+    // The new list item will have the same event listener that the rest do.
     searchList.prepend(currSearch);
     // Prepends it to our list.
+}
+
+function eventClicks(source) {
+    source.addEventListener("click", function(e){
+        e.preventDefault();
+        primaryFetch(this.textContent);
+        buildHistory(this.textContent);
+    })
 }
 
 cityForm.addEventListener("submit", function(e) {
@@ -58,12 +68,10 @@ cityForm.addEventListener("submit", function(e) {
 })
 
 for (let i = 0; i < clickSearch.length; i++) {
-    console.log(clickSearch[i]);
-    clickSearch[i].addEventListener("click", function(e){
-        e.preventDefault();
-        primaryFetch(this.textContent);
-        buildHistory(this.textContent);
-    })
+    eventClicks(clickSearch[i]);
+    // On page load, all searches are given an event listener. Might need to tweak when using
+    // local storage. I'm thinking in addition to getting an event listener, they get a class
+    // that indicates that they have a listener. So this can run an if then statement.
 }
 
 // TODO: response.status to provide errors if the site was down or 404'd, etc.
