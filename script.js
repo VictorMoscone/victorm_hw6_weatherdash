@@ -36,10 +36,19 @@ function primaryFetch(source) {
 
 function buildHistory(source) {
     searchHistory.push(source);
+    // Adds the most recent search to the end of the searchHistory array.
     let currSearch = document.createElement("li");
-    currSearch.setAttribute("class", "list-group-item list-group-item-action clickSearch")
+    // Creates a new list item in our search history bar.
+    // TODO: Needs to see if there's 8 already. If so, it deletes the oldest too.
+    // TODO: Needs to use local storage.
+    currSearch.setAttribute("class", "list-group-item list-group-item-action clickSearch");
+    // Adds all of our list item classes to the new element.
     currSearch.setAttribute("a", "href=``");
-    searchList.append(currSearch);
+    // Adds the href a attribute to our new element.
+    currSearch.textContent = source;
+    // Will allow the new list item to display the city name it just used.
+    searchList.prepend(currSearch);
+    // Prepends it to our list.
 }
 
 cityForm.addEventListener("submit", function(e) {
