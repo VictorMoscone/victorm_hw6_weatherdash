@@ -24,20 +24,22 @@ function getApi(requestUrl) {
       });
   }
 
-cityForm.addEventListener("submit", function(e) {
-    e.preventDefault();
+function primaryFetch(source) {
     weatherInfo.classList.remove("d-none");
     fiveForecast.classList.remove("d-none");
     // This will show the weather info and five day forecast after searching a city.
     // TODO: I need to implement response.status as an IF statement, so this isn't run if a 404 occurs.
-    getApi(`https://api.openweathermap.org/data/2.5/weather?q=${chosenCity.value}&appid=bb4f4eb722b35b0afd1d0fc61d673140&units=imperial`);
+    getApi(`https://api.openweathermap.org/data/2.5/weather?q=${source}&appid=bb4f4eb722b35b0afd1d0fc61d673140&units=imperial`); 
+}
+
+cityForm.addEventListener("submit", function(e) {
+    e.preventDefault();
+    primaryFetch(chosenCity.value);
 })
 
 test.addEventListener("click", function(e){
     e.preventDefault();
-    weatherInfo.classList.remove("d-none");
-    fiveForecast.classList.remove("d-none");
-    getApi(`https://api.openweathermap.org/data/2.5/weather?q=${test.textContent}&appid=bb4f4eb722b35b0afd1d0fc61d673140&units=imperial`);
+    primaryFetch(test.textContent);
 })
 
 //   TODO: response.status to provide errors if the site was down or 404'd, etc.
