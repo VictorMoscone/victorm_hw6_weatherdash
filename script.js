@@ -57,22 +57,25 @@ function eventClicks(source) {
     source.addEventListener("click", function(e){
         e.preventDefault();
         primaryFetch(this.textContent);
+        // Fetches the saved history entry respective API data for display.
         buildHistory(this.textContent);
+        // Adds the click search to the history list.
+        // TODO: The same search result cannot appear in the search history. Instead, it is the newest.
     })
 }
 
 cityForm.addEventListener("submit", function(e) {
+    // triggers when user inputs text.
     e.preventDefault();
     primaryFetch(chosenCity.value);
+    // Fetches the input's respective API data for display.
     buildHistory(chosenCity.value);
+    // Adds the input city to the search history bar.
 })
 
 for (let i = 0; i < clickSearch.length; i++) {
     eventClicks(clickSearch[i]);
-    // On page load, all searches are given an event listener. Might need to tweak when using
-    // local storage. I'm thinking in addition to getting an event listener, they get a class
-    // that indicates that they have a listener. So this can run an if then statement.
+    // On page load, all existing searches are given an event listener.
 }
 
 // TODO: response.status to provide errors if the site was down or 404'd, etc.
-// TODO: The same search result cannot appear in the search history. Instead, it is the newest.
