@@ -8,8 +8,8 @@ let chosenCity = document.querySelector("#chosenCity");
 let weatherInfo = document.querySelector("#weatherInfo");
 let fiveForecast = document.querySelector("#fiveForecast");
 let searchList = document.querySelector("#searchList");
+let clickSearch = document.getElementsByClassName("clickSearch");
 let searchHistory = [];
-let test = document.querySelector("#test");
 
 function getApi(requestUrl) {
     fetch(requestUrl)
@@ -37,6 +37,8 @@ function primaryFetch(source) {
 function buildHistory(source) {
     searchHistory.push(source);
     let currSearch = document.createElement("li");
+    currSearch.setAttribute("class", "list-group-item list-group-item-action clickSearch")
+    currSearch.setAttribute("a", "href=``");
     searchList.append(currSearch);
 }
 
@@ -46,11 +48,14 @@ cityForm.addEventListener("submit", function(e) {
     buildHistory(chosenCity.value);
 })
 
-test.addEventListener("click", function(e){
-    e.preventDefault();
-    primaryFetch(test.textContent);
-    buildHistory(test.textContent);
-})
+for (let i = 0; i < clickSearch.length; i++) {
+    console.log(clickSearch[i]);
+    clickSearch[i].addEventListener("click", function(e){
+        e.preventDefault();
+        primaryFetch(this.textContent);
+        buildHistory(this.textContent);
+    })
+}
 
 // TODO: response.status to provide errors if the site was down or 404'd, etc.
 // TODO: The same search result cannot appear in the search history. Instead, it is the newest.
