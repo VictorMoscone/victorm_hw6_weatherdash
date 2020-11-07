@@ -7,6 +7,8 @@ let cityForm = document.querySelector("#cityForm");
 let chosenCity = document.querySelector("#chosenCity");
 let weatherInfo = document.querySelector("#weatherInfo");
 let fiveForecast = document.querySelector("#fiveForecast");
+let searchList = document.querySelector("#searchList");
+let searchHistory = [];
 let test = document.querySelector("#test");
 
 function getApi(requestUrl) {
@@ -32,14 +34,23 @@ function primaryFetch(source) {
     getApi(`https://api.openweathermap.org/data/2.5/weather?q=${source}&appid=bb4f4eb722b35b0afd1d0fc61d673140&units=imperial`); 
 }
 
+function buildHistory(source) {
+    searchHistory.push(source);
+    let currSearch = document.createElement("li");
+    searchList.append(currSearch);
+}
+
 cityForm.addEventListener("submit", function(e) {
     e.preventDefault();
     primaryFetch(chosenCity.value);
+    buildHistory(chosenCity.value);
 })
 
 test.addEventListener("click", function(e){
     e.preventDefault();
     primaryFetch(test.textContent);
+    buildHistory(test.textContent);
 })
 
-//   TODO: response.status to provide errors if the site was down or 404'd, etc.
+// TODO: response.status to provide errors if the site was down or 404'd, etc.
+// TODO: The same search result cannot appear in the search history. Instead, it is the newest.
