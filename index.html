@@ -10,34 +10,43 @@
     integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" 
     crossorigin="anonymous">
 </head>
+
 <body>
+
     <header class="col-md-12 bg-dark p-4">
         <h1 class="text-white text-center">Weather Dashboard</h1>
     </header>
 
     <div class="row">
+
         <div class="container col-md-3 bg-light">
             <h3 class="ml-3">Search for a City:</h3>
             <div class="form-row">
                 <form class="form-inline">
                     <div class="form-group ml-3">
                       <input type="text" class="form-control" id="cityName">
+                      <!-- Provides a form box for the user to input a city name. -->
                     </div>
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary">Submit</button>
+                        <!-- Provides a submit button alternative to pressing Enter. -->
                     </div>
                 </form>
             </div>
             <!-- TODO: Search History -->
         </div>
+
         <div class="container col-md-9">
             <div class="container border col-md-12 mt-4">
+
                 <div class="row ml-3 mt-3">
                     <h2>
                         <span id="cityName"></span>
                         <span id="currentDate"></span>
+                        <!-- This will dynamically pull in the name of a chosen city. and current date -->
                     </h2>
                 </div>
+                
                 <div class="row ml-3 mt-3">Temperature: <span class="mx-1" id="tempF"></span>&#x2109</div>
                 <div class="row ml-3 mt-3">Humidity: <span class="ml-1" id="humidity"></span>%</div>
                 <div class="row ml-3 mt-3">Wind Speed: <span class="mx-1" id="windSpeed"></span>MPH</div>
@@ -45,17 +54,21 @@
                     <p class="pt-1">UV Index:</p>
                     <p class="ml-1 bg-danger text-light py-1 px-2 rounded">9.49</p>
                 </div>
+                <!-- All of the above parameters will dynamically reflect the chosen city. -->
                 <!-- TODO: API: Chosen City's weather details. Name & Date
                     Temeperature, Humidity, Wind Speed, UV Index -->
             </div>
+            
             <div class="container col-md-12 mt-4">
                 <div class="row"><h3>5-Day Forecast:</h3></div>
                 <!-- TODO: 5-Day Forecast Cards. Date, icon, temp, humidity. -->
             </div>
         </div>
+
     </div>
 
     <script src="./script.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+
 </body>
 </html>
