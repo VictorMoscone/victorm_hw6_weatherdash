@@ -64,8 +64,6 @@ function buildHistory(source, refresh) {
     // Adds the most recent search to the end of the searchHistory array.
     let currSearch = document.createElement("li");
     // Creates a new list item in our search history bar.
-    // TODO: Needs to see if there's 8 already. If so, it deletes the oldest too.
-    // TODO: Needs to use local storage.
     currSearch.setAttribute("class", "list-group-item list-group-item-action clickSearch");
     // Adds all of our list item classes to the new element.
     currSearch.setAttribute("a", "href=``");
@@ -93,7 +91,6 @@ function eventClicks(source) {
         // checks for duplication or if there's 8 results already.
         buildHistory(this.textContent);
         // Adds the click search to the history list.
-        // TODO: The same search result cannot appear in the search history. Instead, it is the newest.
     })
 }
 
