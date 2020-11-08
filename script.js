@@ -51,6 +51,8 @@ function buildHistory(source) {
     // The new list item will have the same event listener that the rest do.
     searchList.prepend(currSearch);
     // Prepends it to our list.
+    localStorage.setItem("recentSearch", searchHistory);
+    // Saves the search history array to local storage anytime new input is received.
 }
 
 function eventClicks(source) {
@@ -58,6 +60,13 @@ function eventClicks(source) {
         e.preventDefault();
         primaryFetch(this.textContent);
         // Fetches the saved history entry respective API data for display.
+        if (searchHistory.includes(this.textContent)) {
+            // if the searchHistory array includes the current value being clicked...
+            let currValue = searchHistory.indexOf(`${this.textContent}`);
+            // find the index of the clicked value...
+            searchHistory.splice(currValue, 1);
+            // and remove it...
+        }
         buildHistory(this.textContent);
         // Adds the click search to the history list.
         // TODO: The same search result cannot appear in the search history. Instead, it is the newest.
