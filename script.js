@@ -42,7 +42,7 @@ let searchList = document.querySelector("#searchList");
 let clickSearch = document.getElementsByClassName("clickSearch");
 let recentSearch = localStorage.getItem("recentSearch");
 let searchHistory = [];
-let status = 0;
+let status = 200;
 
 function getApi(requestUrl) {
     fetch(requestUrl)
@@ -58,7 +58,8 @@ function getApi(requestUrl) {
         windSpeed.textContent = data.wind.speed;
         uvIndexApi(`http://api.openweathermap.org/data/2.5/uvi?lat=${data.coord.lat}&lon=${data.coord.lon}&appid=bb4f4eb722b35b0afd1d0fc61d673140&units=imperial`)
         // When this fetch function is run, it will display the returned data in the main section.
-      });
+      })
+      .catch(error => console.log(error.message));
   }
 
 function forecastApi(foreCastUrl) {
@@ -75,7 +76,8 @@ function forecastApi(foreCastUrl) {
             fiveHumidArray[i].textContent = data.list[i].main.humidity;
             // When this fetch function is run, it will display the returned data in all 5 forecasts.
           }
-      });  
+      })
+      .catch(error => console.log(error.message));
 }
 
 function uvIndexApi(uvIndexUrl) {
@@ -93,7 +95,8 @@ function uvIndexApi(uvIndexUrl) {
             uvBg.setAttribute("class", "ml-1 text-light py-1 px-2 rounded bg-danger");
         }
         // This function dictates the background/text of the UV Index via the fetch data.
-      });  
+      })
+      .catch(error => console.log(error.message));
 }
 
 function responseCheck(requestUrl) {
@@ -107,6 +110,7 @@ function responseCheck(requestUrl) {
             status = response.status
         }
       })
+      .catch(error => console.log(error.message));
 }
 
 function fiveDayPop(source) {
