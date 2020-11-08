@@ -53,11 +53,9 @@ function buildHistory(source, refresh) {
     // The new list item will have the same event listener that the rest do.
     searchList.prepend(currSearch);
     // Prepends it to our list.
-    if (refresh == 1) {
-        return;
-    } else {
+    if (refresh !== 1) {
         localStorage.setItem("recentSearch", JSON.stringify(searchHistory));
-        // Saves the search history array to local storage anytime new input is received.        
+        // Saves the search history array to local storage anytime new input is received. 
     }
 
 }
@@ -93,15 +91,18 @@ function duplicateCheck(source) {
 }
 
 function popList() {
-    if (recentSearch == null) {
-        return;
-    } else {
+    if (recentSearch !== null) {
+        // if the recentSearch localStorage value is present...
         let returnArray = JSON.parse(recentSearch)
+        // convert the local storage into a usable array...
         searchHistory.push(returnArray);
-        console.log(searchHistory)
+        // then, push it to our global array.
         for (let i = 0; i < 3; i++) {
             buildHistory(returnArray[i], 1);
+            // Build search history for each item in the array.
         }
+        searchHistory.shift()
+        // Remove the array of the array.
     }
 }
 
