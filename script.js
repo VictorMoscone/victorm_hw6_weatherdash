@@ -10,6 +10,7 @@ let fiveForecast = document.querySelector("#fiveForecast");
 let searchList = document.querySelector("#searchList");
 let clickSearch = document.getElementsByClassName("clickSearch");
 let searchHistory = [];
+let recentSearch = localStorage.getItem("recentSearch");
 
 function getApi(requestUrl) {
     fetch(requestUrl)
@@ -45,6 +46,7 @@ function buildHistory(source) {
     // Adds all of our list item classes to the new element.
     currSearch.setAttribute("a", "href=``");
     // Adds the href a attribute to our new element.
+    currSearch.setAttribute("id", `result${source}`)
     currSearch.textContent = source;
     // Will allow the new list item to display the city name it just used.
     eventClicks(currSearch);
@@ -66,6 +68,8 @@ function eventClicks(source) {
             // find the index of the clicked value...
             searchHistory.splice(currValue, 1);
             // and remove it...
+            let removedEl = document.getElementById(`result${this.textContent}`)
+            removedEl.parentNode.removeChild(removedEl);
         }
         buildHistory(this.textContent);
         // Adds the click search to the history list.
