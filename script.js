@@ -35,7 +35,7 @@ function primaryFetch(source) {
     getApi(`https://api.openweathermap.org/data/2.5/weather?q=${source}&appid=bb4f4eb722b35b0afd1d0fc61d673140&units=imperial`); 
 }
 
-function buildHistory(source) {
+function buildHistory(source, refresh) {
     searchHistory.push(source);
     // Adds the most recent search to the end of the searchHistory array.
     let currSearch = document.createElement("li");
@@ -53,8 +53,13 @@ function buildHistory(source) {
     // The new list item will have the same event listener that the rest do.
     searchList.prepend(currSearch);
     // Prepends it to our list.
-    localStorage.setItem("recentSearch", searchHistory);
-    // Saves the search history array to local storage anytime new input is received.
+    if (refresh == 1) {
+        return;
+    } else {
+        localStorage.setItem("recentSearch", JSON.stringify(searchHistory));
+        // Saves the search history array to local storage anytime new input is received.        
+    }
+
 }
 
 function eventClicks(source) {
@@ -86,6 +91,21 @@ function duplicateCheck(source) {
         // Checks to see if the array is at 10. If so, removes the oldest value.
     }
 }
+
+function popList() {
+    if (recentSearch == null) {
+        return;
+    } else {
+        let returnArray = JSON.parse(recentSearch)
+        searchHistory.push(returnArray);
+        console.log(searchHistory)
+        for (let i = 0; i < 3; i++) {
+            buildHistory(returnArray[i], 1);
+        }
+    }
+}
+
+popList();
 
 cityForm.addEventListener("submit", function(e) {
     // triggers when user inputs text.
