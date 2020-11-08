@@ -92,20 +92,22 @@ function uvIndexApi(uvIndexUrl) {
         } else {
             uvBg.setAttribute("class", "ml-1 text-light py-1 px-2 rounded bg-danger");
         }
+        // This function dictates the background/text of the UV Index via the fetch data.
       });  
 }
 
 function responseCheck(requestUrl) {
     fetch(requestUrl)
       .then(function (response) {
-        status = response.status
-        if (status !== 200) {
+        if (response.status !== 200) {
             weatherInfo.classList.add("d-none");
             fiveForecast.classList.add("d-none");
             // If the input was bad, it will ensure the main elements are disabled.
+        } else {
+            status = response.status
         }
-      });
-  }
+      })
+}
 
 function fiveDayPop(source) {
     forecastApi(`https://api.openweathermap.org/data/2.5/forecast?q=${source}&appid=bb4f4eb722b35b0afd1d0fc61d673140&units=imperial`)
@@ -209,5 +211,3 @@ cityForm.addEventListener("submit", function(e) {
         // Adds the input city to the search history bar.
     }
 })
-
-// TODO: response.status to provide errors if the site was down or 404'd, etc.
