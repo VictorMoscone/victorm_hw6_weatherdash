@@ -52,7 +52,7 @@ function getApi(requestUrl) {
       .then(function (data) {
         cityName.textContent = data.name;
         currentDate.textContent = `(${moment().format('MM/D/YYYY')})`
-        mainWeather.setAttribute("src", `http://openweathermap.org/img/w/${data.weather[0].icon}.png`)
+        mainWeather.setAttribute("src", `https://openweathermap.org/img/w/${data.weather[0].icon}.png`)
         tempF.textContent = data.main.temp;
         humidity.textContent = data.main.humidity;
         windSpeed.textContent = data.wind.speed;
@@ -71,7 +71,7 @@ function forecastApi(foreCastUrl) {
           for (let i = 0; i < 5; i++) {
             let currentDay = new moment().add(i + 1, 'day');
             fiveDateArray[i].textContent = currentDay.format(`MM/D/YYYY`);
-            fiveIconArray[i].setAttribute("src", `http://openweathermap.org/img/w/${data.list[i].weather[0].icon}.png`)
+            fiveIconArray[i].setAttribute("src", `https://openweathermap.org/img/w/${data.list[i].weather[0].icon}.png`)
             fiveTempArray[i].textContent = data.list[i].main.temp;
             fiveHumidArray[i].textContent = data.list[i].main.humidity;
             // When this fetch function is run, it will display the returned data in all 5 forecasts.
