@@ -21,7 +21,6 @@ If I were given more time to improve the app I would:
 2. Research and improve the error catching process.
 3. For Loops for the large ID Arrays.
 4. For Loops for the repetitive HTML elements.
-5. The search bar had some issues; it wasn't eating the input.
 
 ## Setup Instruction
 

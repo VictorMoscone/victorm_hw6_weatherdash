@@ -214,4 +214,5 @@ cityForm.addEventListener("submit", function(e) {
         buildHistory(chosenCity.value);
         // Adds the input city to the search history bar.
     }
+    chosenCity.value = "";
 })
