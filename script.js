@@ -4,6 +4,7 @@ let mainWeather = document.querySelector("#mainWeather");
 let tempF = document.querySelector("#tempF");
 let humidity = document.querySelector("#humidity");
 let windSpeed = document.querySelector("#windSpeed");
+let uvIndex = document.querySelector("#uvIndex");
 let cityForm = document.querySelector("#cityForm");
 let chosenCity = document.querySelector("#chosenCity");
 let weatherInfo = document.querySelector("#weatherInfo");
@@ -82,6 +83,7 @@ function uvIndexApi(uvIndexUrl) {
       })
       .then(function (data) {
         console.log(data)
+        uvIndex.textContent = data.value
       });  
 }
 
