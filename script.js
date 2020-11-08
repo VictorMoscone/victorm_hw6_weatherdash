@@ -8,10 +8,34 @@ let cityForm = document.querySelector("#cityForm");
 let chosenCity = document.querySelector("#chosenCity");
 let weatherInfo = document.querySelector("#weatherInfo");
 let fiveForecast = document.querySelector("#fiveForecast");
-let fiveDate1 = document.querySelector("#fiveDate1");
-let fiveTemp1 = document.querySelector("#fiveTemp1");
-let fiveHumid1 = document.querySelector("#fiveHumid1");
-let fiveIcon1 = document.querySelector("#fiveIcon1");
+let fiveDateArray = [
+    fiveDate1 = document.querySelector("#fiveDate1"),
+    fiveDate2 = document.querySelector("#fiveDate2"),
+    fiveDate3 = document.querySelector("#fiveDate3"),
+    fiveDate4 = document.querySelector("#fiveDate4"),
+    fiveDate5 = document.querySelector("#fiveDate5"),
+]
+let fiveTempArray = [
+    fiveTemp1 = document.querySelector("#fiveTemp1"),
+    fiveTemp2 = document.querySelector("#fiveTemp2"),
+    fiveTemp3 = document.querySelector("#fiveTemp3"),
+    fiveTemp4 = document.querySelector("#fiveTemp4"),
+    fiveTemp5 = document.querySelector("#fiveTemp5"),
+]
+let fiveHumidArray = [
+    fiveHumid1 = document.querySelector("#fiveHumid1"),
+    fiveHumid2 = document.querySelector("#fiveHumid2"),
+    fiveHumid3 = document.querySelector("#fiveHumid3"),
+    fiveHumid4 = document.querySelector("#fiveHumid4"),
+    fiveHumid5 = document.querySelector("#fiveHumid5"),
+]
+let fiveIconArray = [
+    fiveIcon1 = document.querySelector("#fiveIcon1"),
+    fiveIcon2 = document.querySelector("#fiveIcon2"),
+    fiveIcon3 = document.querySelector("#fiveIcon3"),
+    fiveIcon4 = document.querySelector("#fiveIcon4"),
+    fiveIcon5 = document.querySelector("#fiveIcon5"),
+]
 let searchList = document.querySelector("#searchList");
 let clickSearch = document.getElementsByClassName("clickSearch");
 let searchHistory = [];
@@ -38,16 +62,18 @@ function forecastApi(foreCastUrl) {
         return response.json();
       })
       .then(function (data) {
-        fiveIcon1.setAttribute("src", `http://openweathermap.org/img/w/${data.list[0].weather[0].icon}.png`)
-        fiveTemp1.textContent = data.list[0].main.temp;
-        fiveHumid1.textContent = data.list[0].main.humidity;
+          for (let i = 0; i < 5; i++) {
+            let currentDay = new moment().add(i + 1, 'day');
+            fiveDateArray[i].textContent = currentDay.format(`MM/D/YYYY`);
+            fiveIconArray[i].setAttribute("src", `http://openweathermap.org/img/w/${data.list[i].weather[0].icon}.png`)
+            fiveTempArray[i].textContent = data.list[i].main.temp;
+            fiveHumidArray[i].textContent = data.list[i].main.humidity;            
+          }
       });  
 }
 
 function fiveDayPop(source) {
     forecastApi(`https://api.openweathermap.org/data/2.5/forecast?q=${source}&appid=bb4f4eb722b35b0afd1d0fc61d673140&units=imperial`)
-    let oneDay = new moment().add(1, 'day');
-    fiveDate1.textContent = oneDay.format(`MM/D/YYYY`);
 }
 
 function primaryFetch(source) {
