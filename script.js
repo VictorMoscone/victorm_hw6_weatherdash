@@ -56,7 +56,7 @@ function getApi(requestUrl) {
         tempF.textContent = data.main.temp;
         humidity.textContent = data.main.humidity;
         windSpeed.textContent = data.wind.speed;
-        uvIndexApi(`http://api.openweathermap.org/data/2.5/uvi?lat=${data.coord.lat}&lon=${data.coord.lon}&appid=bb4f4eb722b35b0afd1d0fc61d673140&units=imperial`)
+        uvIndexApi(`https://api.openweathermap.org/data/2.5/uvi?lat=${data.coord.lat}&lon=${data.coord.lon}&appid=bb4f4eb722b35b0afd1d0fc61d673140&units=imperial`)
         // When this fetch function is run, it will display the returned data in the main section.
       })
       .catch(error => console.log(error.message));
