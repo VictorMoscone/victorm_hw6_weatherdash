@@ -10,6 +10,7 @@ let fiveForecast = document.querySelector("#fiveForecast");
 let fiveDate1 = document.querySelector("#fiveDate1");
 let fiveTemp1 = document.querySelector("#fiveTemp1");
 let fiveHumid1 = document.querySelector("#fiveHumid1");
+let fiveIcon1 = document.querySelector("#fiveIcon1");
 let searchList = document.querySelector("#searchList");
 let clickSearch = document.getElementsByClassName("clickSearch");
 let searchHistory = [];
@@ -36,7 +37,8 @@ function forecastApi(foreCastUrl) {
         return response.json();
       })
       .then(function (data) {
-        console.log(data);
+        let iconCode = data.list[0].weather[0].icon;
+        fiveIcon1.setAttribute("src", `http://openweathermap.org/img/w/${iconCode}.png`)
         fiveTemp1.textContent = data.list[0].main.temp;
         fiveHumid1.textContent = data.list[0].main.humidity;
       });  
