@@ -62,19 +62,29 @@ function eventClicks(source) {
         e.preventDefault();
         primaryFetch(this.textContent);
         // Fetches the saved history entry respective API data for display.
-        if (searchHistory.includes(this.textContent)) {
-            // if the searchHistory array includes the current value being clicked...
-            let currValue = searchHistory.indexOf(`${this.textContent}`);
-            // find the index of the clicked value...
-            searchHistory.splice(currValue, 1);
-            // and remove it...
-            let removedEl = document.getElementById(`result${this.textContent}`)
-            removedEl.parentNode.removeChild(removedEl);
-        }
+        duplicateCheck(this.textContent);
+        // checks for duplication or if there's 10 results already.
         buildHistory(this.textContent);
         // Adds the click search to the history list.
         // TODO: The same search result cannot appear in the search history. Instead, it is the newest.
     })
+}
+
+function duplicateCheck(source) {
+    if (searchHistory.includes(source)) {
+        // if the searchHistory array includes the current value being used...
+        let currValue = searchHistory.indexOf(`${source}`);
+        // find the index of the used value...
+        searchHistory.splice(currValue, 1);
+        // and remove it...
+        let removedEl = document.getElementById(`result${source}`)
+        // Also finds the respective element...
+        removedEl.parentNode.removeChild(removedEl);
+        // and removes it too...
+    } else if (searchHistory == 10) {
+        searchHistory.shift()
+        // Checks to see if the array is at 10. If so, removes the oldest value.
+    }
 }
 
 cityForm.addEventListener("submit", function(e) {
@@ -82,6 +92,8 @@ cityForm.addEventListener("submit", function(e) {
     e.preventDefault();
     primaryFetch(chosenCity.value);
     // Fetches the input's respective API data for display.
+    duplicateCheck(chosenCity.value);
+    // checks for duplication or if there's 10 results already.
     buildHistory(chosenCity.value);
     // Adds the input city to the search history bar.
 })
