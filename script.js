@@ -66,7 +66,7 @@ function eventClicks(source) {
         primaryFetch(this.textContent);
         // Fetches the saved history entry respective API data for display.
         duplicateCheck(this.textContent);
-        // checks for duplication or if there's 10 results already.
+        // checks for duplication or if there's 8 results already.
         buildHistory(this.textContent);
         // Adds the click search to the history list.
         // TODO: The same search result cannot appear in the search history. Instead, it is the newest.
@@ -84,9 +84,13 @@ function duplicateCheck(source) {
         // Also finds the respective element...
         removedEl.parentNode.removeChild(removedEl);
         // and removes it too...
-    } else if (searchHistory == 10) {
+    } else if (searchHistory.length == 8) {
+        let removedEl = document.getElementById(`result${searchHistory[0]}`);
+        // If the search history is at 8, finds the oldest search result...
+        removedEl.parentNode.removeChild(removedEl);
+        // and removes it.
         searchHistory.shift()
-        // Checks to see if the array is at 10. If so, removes the oldest value.
+        // Removes it from the array too.
     }
 }
 
@@ -97,7 +101,7 @@ function popList() {
         // convert the local storage into a usable array...
         searchHistory.push(returnArray);
         // then, push it to our global array.
-        for (let i = 0; i < 3; i++) {
+        for (let i = 0; i < searchHistory[0].length; i++) {
             buildHistory(returnArray[i], 1);
             // Build search history for each item in the array.
         }
@@ -114,7 +118,7 @@ cityForm.addEventListener("submit", function(e) {
     primaryFetch(chosenCity.value);
     // Fetches the input's respective API data for display.
     duplicateCheck(chosenCity.value);
-    // checks for duplication or if there's 10 results already.
+    // checks for duplication or if there's 8 results already.
     buildHistory(chosenCity.value);
     // Adds the input city to the search history bar.
 })
