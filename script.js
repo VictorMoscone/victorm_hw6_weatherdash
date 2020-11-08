@@ -25,7 +25,6 @@ function getApi(requestUrl) {
       .then(function (data) {
         cityName.textContent = data.name;
         currentDate.textContent = `(${moment().format('MM/D/YYYY')})`
-        console.log(data);
         mainWeather.setAttribute("src", `http://openweathermap.org/img/w/${data.weather[0].icon}.png`)
         tempF.textContent = data.main.temp;
         humidity.textContent = data.main.humidity;
@@ -147,10 +146,5 @@ cityForm.addEventListener("submit", function(e) {
     buildHistory(chosenCity.value);
     // Adds the input city to the search history bar.
 })
-
-for (let i = 0; i < clickSearch.length; i++) {
-    eventClicks(clickSearch[i]);
-    // On page load, all existing searches are given an event listener.
-}
 
 // TODO: response.status to provide errors if the site was down or 404'd, etc.
