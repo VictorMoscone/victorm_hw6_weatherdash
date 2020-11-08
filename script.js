@@ -40,8 +40,9 @@ let fiveIconArray = [
 ]
 let searchList = document.querySelector("#searchList");
 let clickSearch = document.getElementsByClassName("clickSearch");
-let searchHistory = [];
 let recentSearch = localStorage.getItem("recentSearch");
+let searchHistory = [];
+let status = 0;
 
 function getApi(requestUrl) {
     fetch(requestUrl)
@@ -94,16 +95,27 @@ function uvIndexApi(uvIndexUrl) {
       });  
 }
 
+function responseCheck(requestUrl) {
+    fetch(requestUrl)
+      .then(function (response) {
+        status = response.status
+        if (status !== 200) {
+            weatherInfo.classList.add("d-none");
+            fiveForecast.classList.add("d-none");
+            // If the input was bad, it will ensure the main elements are disabled.
+        }
+      });
+  }
+
 function fiveDayPop(source) {
     forecastApi(`https://api.openweathermap.org/data/2.5/forecast?q=${source}&appid=bb4f4eb722b35b0afd1d0fc61d673140&units=imperial`)
 }
 
-function primaryFetch(source) {
+function primaryFetch(source) {  
     weatherInfo.classList.remove("d-none");
     fiveForecast.classList.remove("d-none");
     fiveDayPop(source);
     // This will show the weather info and five day forecast after searching a city.
-    // TODO: I need to implement response.status as an IF statement, so this isn't run if a 404 occurs.
     getApi(`https://api.openweathermap.org/data/2.5/weather?q=${source}&appid=bb4f4eb722b35b0afd1d0fc61d673140&units=imperial`); 
 }
 
@@ -133,12 +145,15 @@ function buildHistory(source, refresh) {
 function eventClicks(source) {
     source.addEventListener("click", function(e){
         e.preventDefault();
-        primaryFetch(this.textContent);
-        // Fetches the saved history entry respective API data for display.
-        duplicateCheck(this.textContent);
-        // checks for duplication or if there's 8 results already.
-        buildHistory(this.textContent);
-        // Adds the click search to the history list.
+        responseCheck(`https://api.openweathermap.org/data/2.5/weather?q=${this.textContent}&appid=bb4f4eb722b35b0afd1d0fc61d673140&units=imperial`);
+        if (status == 200) {
+            primaryFetch(this.textContent);
+            // Fetches the saved history entry respective API data for display.
+            duplicateCheck(this.textContent);
+            // checks for duplication or if there's 8 results already.
+            buildHistory(this.textContent);
+            // Adds the click search to the history list.  
+        }
     })
 }
 
@@ -184,12 +199,15 @@ popList();
 cityForm.addEventListener("submit", function(e) {
     // triggers when user inputs text.
     e.preventDefault();
-    primaryFetch(chosenCity.value);
-    // Fetches the input's respective API data for display.
-    duplicateCheck(chosenCity.value);
-    // checks for duplication or if there's 8 results already.
-    buildHistory(chosenCity.value);
-    // Adds the input city to the search history bar.
+    responseCheck(`https://api.openweathermap.org/data/2.5/weather?q=${chosenCity.value}&appid=bb4f4eb722b35b0afd1d0fc61d673140&units=imperial`);
+    if (status == 200) {
+        primaryFetch(chosenCity.value);
+        // Fetches the input's respective API data for display.
+        duplicateCheck(chosenCity.value);
+        // checks for duplication or if there's 8 results already.
+        buildHistory(chosenCity.value);
+        // Adds the input city to the search history bar.
+    }
 })
 
 // TODO: response.status to provide errors if the site was down or 404'd, etc.
