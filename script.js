@@ -1,5 +1,6 @@
 let cityName = document.querySelector("#cityName");
 let currentDate = document.querySelector("#currentDate");
+let mainWeather = document.querySelector("#mainWeather");
 let tempF = document.querySelector("#tempF");
 let humidity = document.querySelector("#humidity");
 let windSpeed = document.querySelector("#windSpeed");
@@ -24,7 +25,8 @@ function getApi(requestUrl) {
       .then(function (data) {
         cityName.textContent = data.name;
         currentDate.textContent = `(${moment().format('MM/D/YYYY')})`
-        // TODO: The appropriate weather icon needs to appear next to the date.
+        console.log(data);
+        mainWeather.setAttribute("src", `http://openweathermap.org/img/w/${data.weather[0].icon}.png`)
         tempF.textContent = data.main.temp;
         humidity.textContent = data.main.humidity;
         windSpeed.textContent = data.wind.speed;
@@ -37,8 +39,7 @@ function forecastApi(foreCastUrl) {
         return response.json();
       })
       .then(function (data) {
-        let iconCode = data.list[0].weather[0].icon;
-        fiveIcon1.setAttribute("src", `http://openweathermap.org/img/w/${iconCode}.png`)
+        fiveIcon1.setAttribute("src", `http://openweathermap.org/img/w/${data.list[0].weather[0].icon}.png`)
         fiveTemp1.textContent = data.list[0].main.temp;
         fiveHumid1.textContent = data.list[0].main.humidity;
       });  
