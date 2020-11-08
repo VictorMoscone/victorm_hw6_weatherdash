@@ -53,6 +53,8 @@ function getApi(requestUrl) {
         tempF.textContent = data.main.temp;
         humidity.textContent = data.main.humidity;
         windSpeed.textContent = data.wind.speed;
+        uvIndexApi(`http://api.openweathermap.org/data/2.5/uvi?lat=${data.coord.lat}&lon=${data.coord.lon}&appid=bb4f4eb722b35b0afd1d0fc61d673140&units=imperial`)
+        // When this fetch function is run, it will display the returned data in the main section.
       });
   }
 
@@ -67,8 +69,19 @@ function forecastApi(foreCastUrl) {
             fiveDateArray[i].textContent = currentDay.format(`MM/D/YYYY`);
             fiveIconArray[i].setAttribute("src", `http://openweathermap.org/img/w/${data.list[i].weather[0].icon}.png`)
             fiveTempArray[i].textContent = data.list[i].main.temp;
-            fiveHumidArray[i].textContent = data.list[i].main.humidity;            
+            fiveHumidArray[i].textContent = data.list[i].main.humidity;
+            // When this fetch function is run, it will display the returned data in all 5 forecasts.
           }
+      });  
+}
+
+function uvIndexApi(uvIndexUrl) {
+    fetch(uvIndexUrl)
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (data) {
+        console.log(data)
       });  
 }
 
