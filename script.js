@@ -5,6 +5,7 @@ let tempF = document.querySelector("#tempF");
 let humidity = document.querySelector("#humidity");
 let windSpeed = document.querySelector("#windSpeed");
 let uvIndex = document.querySelector("#uvIndex");
+let uvBg = document.querySelector("#uvBg");
 let cityForm = document.querySelector("#cityForm");
 let chosenCity = document.querySelector("#chosenCity");
 let weatherInfo = document.querySelector("#weatherInfo");
@@ -82,8 +83,14 @@ function uvIndexApi(uvIndexUrl) {
         return response.json();
       })
       .then(function (data) {
-        console.log(data)
-        uvIndex.textContent = data.value
+        uvIndex.textContent = data.value;
+        if (data.value < 3) {
+            uvBg.setAttribute("class", "ml-1 text-light py-1 px-2 rounded bg-success");
+        } else if (data.value < 6) {
+            uvBg.setAttribute("class", "ml-1 text-dark py-1 px-2 rounded bg-warning");
+        } else {
+            uvBg.setAttribute("class", "ml-1 text-light py-1 px-2 rounded bg-danger");
+        }
       });  
 }
 
