@@ -8,6 +8,8 @@ let chosenCity = document.querySelector("#chosenCity");
 let weatherInfo = document.querySelector("#weatherInfo");
 let fiveForecast = document.querySelector("#fiveForecast");
 let fiveDate1 = document.querySelector("#fiveDate1");
+let fiveTemp1 = document.querySelector("#fiveTemp1");
+let fiveHumid1 = document.querySelector("#fiveHumid1");
 let searchList = document.querySelector("#searchList");
 let clickSearch = document.getElementsByClassName("clickSearch");
 let searchHistory = [];
@@ -28,7 +30,20 @@ function getApi(requestUrl) {
       });
   }
 
-function fiveDayPop() {
+function forecastApi(foreCastUrl) {
+    fetch(foreCastUrl)
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (data) {
+        console.log(data);
+        fiveTemp1.textContent = data.list[0].main.temp;
+        fiveHumid1.textContent = data.list[0].main.humidity;
+      });  
+}
+
+function fiveDayPop(source) {
+    forecastApi(`https://api.openweathermap.org/data/2.5/forecast?q=${source}&appid=bb4f4eb722b35b0afd1d0fc61d673140&units=imperial`)
     let oneDay = new moment().add(1, 'day');
     fiveDate1.textContent = oneDay.format(`MM/D/YYYY`);
 }
@@ -36,7 +51,7 @@ function fiveDayPop() {
 function primaryFetch(source) {
     weatherInfo.classList.remove("d-none");
     fiveForecast.classList.remove("d-none");
-    fiveDayPop();
+    fiveDayPop(source);
     // This will show the weather info and five day forecast after searching a city.
     // TODO: I need to implement response.status as an IF statement, so this isn't run if a 404 occurs.
     getApi(`https://api.openweathermap.org/data/2.5/weather?q=${source}&appid=bb4f4eb722b35b0afd1d0fc61d673140&units=imperial`); 
